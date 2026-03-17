@@ -1,18 +1,20 @@
-# /etc/nixos/flake.nix
 {
+  description = "My NixOS configuration";
+
   inputs = {
-    # NOTE: Replace "nixos-23.11" with that which is in system.stateVersion of
-    # configuration.nix. You can also use latter versions if you wish to
-    # upgrade.
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs"; # avoids a second copy of nixpkgs
+    };
   };
-  outputs = inputs@{ self, nixpkgs, ... }: {
-    # NOTE: 'nixos' is the default hostname set by the installer
+
+  outputs = { self, nixpkgs, nur, ... }@inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      # NOTE: Change this to aarch64-linux if you are on ARM
-      system = "x86_64-linux";
-      modules = [ ./configuration.nix ];
+      modules = [
+        ./configuration.nix
+        nur.modules.nixos.default  # adds the NUR overlay to your system
+      ];
     };
   };
 }
-

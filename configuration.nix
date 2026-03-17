@@ -48,7 +48,7 @@
 
   services.desktopManager.cosmic.enable        = true;
   services.displayManager.cosmic-greeter.enable = true;
-  
+
   services.desktopManager.cosmic.xwayland.enable = true;
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -106,6 +106,7 @@
   environment.systemPackages = with pkgs; [
     claude-code
     opencode
+    nur.repos.charmbracelet.crush
     pywal16
     vscode
     pure-prompt
@@ -187,6 +188,7 @@
     julia
     jdk21
     dotnet-sdk
+    rust-analyzer
 
     # --- Python tooling ---
     uv
@@ -257,7 +259,7 @@
     dbeaver-bin         # unfree — confirmed in nixpkgs
 
     # --- Wayland / compositor utilities ---
-    
+
     wl-clipboard
     slurp
     grim
@@ -296,15 +298,15 @@
     dockerCompat = true; # lets you type `docker` as an alias for podman
     defaultNetwork.settings.dns_enabled = true;
   };
-  
+
   services.flatpak.enable = true;
-  
+
   programs.zsh = {
     enable                    = true;
     autosuggestions.enable    = true;
     syntaxHighlighting.enable = true;
   };
-  
+
   programs.steam = {
     enable                       = true;
     remotePlay.openFirewall      = true;
@@ -314,7 +316,7 @@
 
   # List services that you want to enable:
     services.tailscale.enable = true;
-    
+
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     nerd-fonts.meslo-lg
@@ -326,17 +328,17 @@
     noto-fonts
     noto-fonts-cjk-sans
   ];
-  
+
   security.doas.enable = true;
   security.sudo.enable = false;
   security.doas.extraRules = [{
     users = ["ocelot"];
-    # Optional, retains environment variables while running commands 
+    # Optional, retains environment variables while running commands
     # e.g. retains your NIX_PATH when applying your config
-    keepEnv = true; 
+    keepEnv = true;
     persist = true;  # Optional, only require password verification a single time
   }];
-  
+
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
