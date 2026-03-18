@@ -295,6 +295,8 @@
   # };
   virtualisation.libvirtd.enable = true;
 
+  virtualisation.spiceUSBRedirection.enable = true;
+
   virtualisation.podman = {
     enable       = true;
     dockerCompat = true; # lets you type `docker` as an alias for podman
