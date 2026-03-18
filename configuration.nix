@@ -116,7 +116,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     claude-code
-    code-cursor
     nil
     nixd
     opencode
