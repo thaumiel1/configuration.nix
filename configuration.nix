@@ -5,10 +5,10 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -23,7 +23,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.firewall.enable   = true;
+  networking.firewall.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/London";
@@ -46,7 +46,7 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  services.desktopManager.cosmic.enable        = true;
+  services.desktopManager.cosmic.enable = true;
   services.displayManager.cosmic-greeter.enable = true;
 
   services.desktopManager.cosmic.xwayland.enable = true;
@@ -85,15 +85,26 @@
   users.users.ocelot = {
     isNormalUser = true;
     description = "Ocelot";
-    extraGroups = [ "networkmanager" "wheel" "podman" "docker" "libvirtd" "audio" "video"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "podman"
+      "docker"
+      "libvirtd"
+      "audio"
+      "video"
+    ];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
     shell = pkgs.zsh;
   };
 
   # Enable nix flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -105,6 +116,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     claude-code
+    code-cursor
     nil
     nixd
     opencode
@@ -155,23 +167,22 @@
     discord
     telegram-desktop
 
-
     # --- Password manager ---
     bitwarden-desktop
 
     # --- Editors & IDEs ---
-    vscode              # unfree
+    vscode # unfree
     helix
     vim
     neovim
-    zed-editor          # confirmed in nixpkgs since 24.11
+    zed-editor # confirmed in nixpkgs since 24.11
 
     jetbrains-toolbox
 
     # --- Version control ---
     git
     github-cli
-    gitkraken           # unfree — confirmed in nixpkgs
+    gitkraken # unfree — confirmed in nixpkgs
 
     # --- Build tools ---
     gcc
@@ -200,7 +211,7 @@
 
     # --- Container & VM tools ---
     distrobox
-    virt-manager        # GUI front-end for libvirtd (enabled above)
+    virt-manager # GUI front-end for libvirtd (enabled above)
 
     # --- GPU Screen Recorder GUI ---
     gpu-screen-recorder-gtk
@@ -208,7 +219,7 @@
     # --- System & disk tools ---
     gparted
     btrfs-progs
-    btrfs-assistant     # GUI for snapper / btrfs — confirmed in nixpkgs
+    btrfs-assistant # GUI for snapper / btrfs — confirmed in nixpkgs
     snapper
     smartmontools
     gptfdisk
@@ -224,7 +235,7 @@
     curl
     rsync
     nmap
-    bind                # provides dig / nslookup
+    bind # provides dig / nslookup
     iproute2
 
     # --- File tools ---
@@ -242,7 +253,7 @@
     blender
     obs-studio
     strawberry
-               # unfree
+    # unfree
 
     # --- Graphics & creative ---
     gimp
@@ -253,14 +264,14 @@
     libreoffice-qt6
     texlive.combined.scheme-full
     zathura
-    typora              # unfree
+    typora # unfree
 
     # --- Notes & writing ---
     zettlr
-    obsidian            # unfree — confirmed in nixpkgs
+    obsidian # unfree — confirmed in nixpkgs
 
     # --- Database tools ---
-    dbeaver-bin         # unfree — confirmed in nixpkgs
+    dbeaver-bin # unfree — confirmed in nixpkgs
 
     # --- Wayland / compositor utilities ---
 
@@ -268,24 +279,23 @@
     slurp
     grim
     flameshot
-    satty               # screenshot annotation tool
+    satty # screenshot annotation tool
 
     # --- Misc CLI utilities ---
     yt-dlp
 
     # --- Dev extras ---
-    just                # command runner (like make, but simpler)
-    stow                # dotfile symlink manager
-    cppcheck            # static analysis for C/C++
+    just # command runner (like make, but simpler)
+    stow # dotfile symlink manager
+    cppcheck # static analysis for C/C++
 
     # Neovim plugins
     vimPlugins.nvim-treesitter
   ];
 
-
   programs.neovim = {
-   enable = true;
-   defaultEditor = true;
+    enable = true;
+    defaultEditor = true;
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -300,7 +310,7 @@
   virtualisation.spiceUSBRedirection.enable = true;
 
   virtualisation.podman = {
-    enable       = true;
+    enable = true;
     dockerCompat = true; # lets you type `docker` as an alias for podman
     defaultNetwork.settings.dns_enabled = true;
   };
@@ -308,20 +318,20 @@
   services.flatpak.enable = true;
 
   programs.zsh = {
-    enable                    = true;
-    autosuggestions.enable    = true;
+    enable = true;
+    autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
   };
 
   programs.steam = {
-    enable                       = true;
-    remotePlay.openFirewall      = true;
+    enable = true;
+    remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
   };
   hardware.steam-hardware.enable = true;
 
   # List services that you want to enable:
-    services.tailscale.enable = true;
+  services.tailscale.enable = true;
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
@@ -330,25 +340,25 @@
     dejavu_fonts
     liberation_ttf
     fira-sans
-    source-han-sans     # CJK support (Chinese / Japanese / Korean)
+    source-han-sans # CJK support (Chinese / Japanese / Korean)
     noto-fonts
     noto-fonts-cjk-sans
   ];
 
   security.doas.enable = true;
   security.sudo.enable = false;
-  security.doas.extraRules = [{
-    users = ["ocelot"];
-    # Optional, retains environment variables while running commands
-    # e.g. retains your NIX_PATH when applying your config
-    keepEnv = true;
-    persist = true;  # Optional, only require password verification a single time
-  }];
-
+  security.doas.extraRules = [
+    {
+      users = [ "ocelot" ];
+      # Optional, retains environment variables while running commands
+      # e.g. retains your NIX_PATH when applying your config
+      keepEnv = true;
+      persist = true; # Optional, only require password verification a single time
+    }
+  ];
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
