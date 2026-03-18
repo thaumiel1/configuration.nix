@@ -106,6 +106,7 @@
   environment.systemPackages = with pkgs; [
     claude-code
     opencode
+    podman-desktop
     nur.repos.charmbracelet.crush
     pywal16
     vscode
