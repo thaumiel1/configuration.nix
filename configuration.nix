@@ -164,9 +164,7 @@
     neovim
     zed-editor          # confirmed in nixpkgs since 24.11
 
-    # --- JetBrains IDEs (all unfree) ---
-    jetbrains.idea-oss
-    jetbrains.rust-rover
+    jetbrains-toolbox
 
     # --- Version control ---
     git
