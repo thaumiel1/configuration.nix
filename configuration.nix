@@ -107,6 +107,9 @@
     claude-code
     opencode
     podman-desktop
+    zulu
+    zulu8
+    zulu25
     nur.repos.charmbracelet.crush
     pywal16
     vscode
