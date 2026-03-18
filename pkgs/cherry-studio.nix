@@ -15,7 +15,8 @@ pkgs.appimageTools.wrapType2 {
   inherit pname version src;
 
   extraInstallCommands = ''
-    install -m 444 -D ${appimageContents}/cherry-studio.desktop \
+    install -m 444 -D \
+      ${appimageContents}/usr/share/applications/cherry-studio.desktop \
       $out/share/applications/cherry-studio.desktop
     substituteInPlace $out/share/applications/cherry-studio.desktop \
       --replace 'Exec=AppRun' 'Exec=cherry-studio'
