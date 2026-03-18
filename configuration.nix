@@ -105,6 +105,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     claude-code
+    nil
+    nixd
     opencode
     podman-desktop
     zulu

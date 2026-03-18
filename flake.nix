@@ -14,6 +14,11 @@
       modules = [
         ./configuration.nix
         nur.modules.nixos.default  # adds the NUR overlay to your system
+      ({ pkgs, ... }: {
+          environment.systemPackages = [
+            (import ./pkgs/cherry-studio.nix { inherit pkgs; lib = pkgs.lib; })
+          ];
+        })
       ];
     };
   };
